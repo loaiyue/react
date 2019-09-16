@@ -20,7 +20,7 @@ class ListItem extends Component{
 }
 
 ListItem.defaultProps={
-    name:'bbb'
+    name:''
 };
 ListItem.propTypes={
     value:PropTypes.string,

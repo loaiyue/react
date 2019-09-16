@@ -1,50 +1,63 @@
 import React, {Component, Fragment} from "react"
 import ListItem from "./item"
+import store from "./store/index"
+import {change_key} from "./store/actionCreators"
 class TodoList extends Component {
     constructor(props) {
         super(props)
-
-        this.changeKey=this.changeKey.bind(this);
-        this.addList=this.addList.bind(this);
-        this.handleClick=this.handleClick.bind(this);
-        this.state = {
-            key: "",
-            list: [
-                {
-                    value: "zz"
-                },
-                {
-                    value: "jj"
-                }
-            ],
-        }
+        console.log(store.getState())
+        this.changeKey = this.changeKey.bind(this);
+        this.addList = this.addList.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.handleStoreChange=this.handleStoreChange.bind(this)
+        this.state = store.getState()
+        store.subscribe(this.handleStoreChange)
     }
 
-    changeKey(e){
-        const key=this.input.value;
-        this.setState((pre)=>{
-          return{
-              key:key
-          }
-        })
+    handleStoreChange() {
+        this.setState(store.getState())
     }
-    addList(){
-        this.setState((pre)=>{
-            return{
-                list:[...pre.list,{value:pre.key}],
-                key:" "
-            }
-        })
+
+    changeKey(e) {
+        // const key=this.input.value;
+        // this.setState((pre)=>{
+        //   return{
+        //       key:key
+        //   }
+        // })
+
+
+        store.dispatch(change_key(e.target.value))
     }
-    handleClick(){
+
+    addList() {
+        // this.setState((pre) => {
+        //     return {
+        //         list: [...pre.list, {value: pre.key}],
+        //         key: " "
+        //     }
+        // })
+        if(!this.state.key) return;
+        const action = {
+            type: "change_list",
+            value: this.state.key
+        };
+
+        store.dispatch(action)
+    }
+
+    handleClick() {
         console.log("haha")
     }
+
     render() {
         return (
             <Fragment>
                 <div>
                     <input
-                        ref={(input)=>{this.input=input}}
+                        ref={(input) => {
+                            this.input = input
+                        }}
                         value={this.state.key}
                         onChange={this.changeKey} type="text"/>
                     <button onClick={this.addList}>add</button>
