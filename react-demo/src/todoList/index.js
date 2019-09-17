@@ -2,7 +2,6 @@ import React, {Component, Fragment} from "react"
 import ListItem from "./item"
 import store from "./store/index"
 import {change_key,init} from "./store/actionCreators"
-import axios from "axios"
 class TodoList extends Component {
     constructor(props) {
         super(props)
@@ -15,10 +14,7 @@ class TodoList extends Component {
     }
 
     componentDidMount() {
-        axios.get("./list.json").then(({data})=>{
-            store.dispatch(init(data))
-        })
-
+        store.dispatch(init())
     }
 
     handleStoreChange() {
