@@ -1,16 +1,7 @@
 const defaultState={
     key: "",
-    list: [
-        {
-            value: "zz"
-        },
-        {
-            value: "jj"
-        }
-    ],
-}
-
-
+    list: [],
+};
 
 export default (state=defaultState,action)=>{
     const newState=JSON.parse(JSON.stringify(state))
@@ -21,8 +12,13 @@ export default (state=defaultState,action)=>{
         case "change_list":
             newState.list=[...state.list,{value:action.value}];
             newState.key="";
+            return newState;
+        case "init":
+            newState.key=action.value.key;
+            newState.list=action.value.list;
             return newState
+
+        default:
+            return state
     }
-    console.log(state,action)
-  return state
 }
