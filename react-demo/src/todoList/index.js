@@ -40,6 +40,11 @@ class TodoList extends Component {
         //         key: " "
         //     }
         // })
+
+        for(let i=0;i<10;i--){
+
+
+        }
         if(!this.state.key) return;
         const action = {
             type: "change_list",
