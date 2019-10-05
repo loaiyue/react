@@ -6,6 +6,7 @@ export const change_key=(value)=>{
     }
 };
 
+console.log(123)
 
 export const init=()=>{
     return (dispatch)=>{
